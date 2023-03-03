@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'src/css/dist/normaliz.css' %}">
+    <link rel="stylesheet" href="{% static 'src/css/dist/main.css' %}">
+</head>
+
+<body>
+
+    <div class="log-form">
+        <!-- start form -->
+        <form action="." method='post'id="login-form" class="">
+            <!-- start container -->
+            <div class="container card bx-shadow padding-20 d-flex row wrap gap-20">
+{% csrf_token %}
+                <!-- start input-group -->
+                <div class="input-group f-b100">
+                    <label for="">Email</label>
+                    <input  class="form-control" name="email" id="">
+                      
+                </p>
+                </div>
+                <!-- end input-group -->
+                
+                <!-- start input-group -->
+                <div class="input-group f-b100">
+                    <label for="">password</label>
+                    <input type="password" class="form-control" name="password" id="">
+                </div>
+                <!-- end input-group -->
+
+                <!-- start input-group -->
+                <div class="input-group f-b100">
+                    <label for="">Code</label>
+                    <input type="text" class="form-control" name="code" id="">
+                </div>
+                <!-- end input-group -->
+                <div class="btn-container f-b100">
+                    <button class="btn main-btn font-size20 c-white" type="submit">Login</button>
+                </div>
+
+            </div>
+            <!-- end container -->
+        </form>
+        <!-- end form -->
+        <div class="bg-c"></div>
+    </div>
+
+    <script src="{% static 'src/js/main.js' %}"></script>
+
+</body>
+
+</html>

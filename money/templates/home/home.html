@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'src/css/dist/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'src/css/dist/main.css' %}">
+
+</head>
+
+<body>
+
+
+    <!-- start header -->
+    <header class="header">
+        <!-- start container -->
+        <div class="container">
+
+            <div class="navBar">
+
+                <div class="logo">
+                    <img src="" alt="website Name">
+                </div>
+                <!-- start header content -->
+                <div class="header-content">
+                    <div class="profile-btn" data-dropdown>
+                        <button class="d-flex align-center gap-10">
+                            <span class="c-white font-size14">{{new.user.username}}</span>
+                            <img class="" src="{% static 'src/image/user.png' %}" alt="user.." srcset="">
+                        </button>
+
+                        <div class="dropdown">
+                            <ul class="max-height d-flex column padding-5 gap-5">
+                                <li>User Comany Name</li>
+                                <li>
+                                    <p id="userId" class="d-flex row gap-10 wrap justify-space-between">
+                                        <span>user ID:</span>{{new.pk}}
+                                    </p>
+                                </li>
+                                <li>
+                                    <p id="stat" class="d-flex row gap-10 wrap justify-space-between">
+                                        <span>Stat : </span> <span class="ac-stat">Active</span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- end header content -->
+            </div>
+
+        </div>
+        <!-- end container-->
+    </header>
+    <!-- end header-->
+
+    <!-- start split page -->
+    <div class="split-page">
+        <!-- start links -->
+        <div class="links links-part b-black">
+            <button class="toggle-btn btn b-black c-white"><i class="fa-solid fa-gear"></i></button>
+            <ul class="links-container">
+                <!-- start pages-link -->
+                <li data-dropdown="">
+                    <button class="b-transparent btn c-white main-btn d-flex justify-space-between row p">Job <i class="fa-solid fa-arrow-up"></i></button>
+                    <div class="dropdown nav">
+                        <ul class="max-height ">
+                            <li>
+                                <a href="home.html" class="c-white main-btn">Home</a>
+                            </li>
+                            
+                            <li>
+                                <a href="expense-review.html" class="c-white main-btn">Expense Review</a>
+                            </li>
+
+                            <li>
+                                <a href="creditor-debtor.html" class="c-white main-btn">Creditor And Debtor</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+                <!-- end pages-link -->
+                <!-- start li -->
+                <li>
+                    <button class="btn main-btn t-align-left c-white">Investment Case</button>
+                </li>
+                <!-- end li -->
+                <!-- start li -->
+                <li>
+                    <button class="btn main-btn t-align-left c-white">Enable Investment</button>
+                </li>
+                <!-- end li -->
+                <!-- start li -->
+                <li>
+                    <button class="btn main-btn t-align-left c-white" id="return-btn">Return</button>
+                </li>
+                <!-- end li -->
+                <!-- start li -->
+                <li>
+                    <button class="btn main-btn t-align-left c-white">Apply</button>
+                </li>
+                <!-- end li -->
+            </ul>
+        </div>
+        <!-- end links -->
+        <!-- start page content -->
+        <div class="page-content ">
+            <div class="container d-flex row gap-20 wrap">
+                <!-- start card -->
+                <div class="card  f-b100">
+                    <!-- start card-container -->
+                    <div class="card-contaier">
+                        <!-- start top-title -->
+                        <div class="top-title d-flex align-center row justify-center">
+                            <h4 id="stock" class="c-white  d-flex column gap-20 wrap padding-20">
+                                <span class="b-black padding-20">{{object.balance}}$</span>
+                                <span class="b-black padding-20 align-self-center">Account</span>
+                            </h4>
+
+
+                        </div>
+                        <!-- end top-title -->
+                    </div>
+                    <!-- end card-container -->
+                </div>
+                <!-- end card -->
+                <!-- ---------------------- -->
+                <!-- start card -->
+                <div class="card b-black f-b33">
+                    <!-- start card-container -->
+                    <div class="card-contaier">
+                        <!-- start top-title -->
+                        <div class="top-title">
+                            <h4 class="c-white">Card</h4>
+                        </div>
+                        <!-- end top-title -->
+                    </div>
+                    <!-- end card-container -->
+                </div>
+                <!-- end card -->
+
+
+                <!-- start card -->
+                <div class="card b-black f-b33">
+                    <!-- start card-container -->
+                    <div class="card-contaier">
+                        <!-- start top-title -->
+                        <div class="top-title">
+                            <h4 class="c-white">Card</h4>
+                        </div>
+                        <!-- end top-title -->
+                    </div>
+                    <!-- end card-container -->
+                </div>
+                <!-- end card -->
+
+                <!-- start card -->
+                <div class="card b-black f-b33">
+                    <!-- start card-container -->
+                    <div class="card-contaier">
+                        <!-- start top-title -->
+                        <div class="top-title">
+                            <h4 class="c-white">Card</h4>
+                        </div>
+                        <!-- end top-title -->
+                    </div>
+                    <!-- end card-container -->
+                </div>
+                <!-- end card -->
+
+                <!-- ----------------------- -->
+                <!-- start card -->
+                <div class="card f-b100 btn-card">
+                    <div class="card-container">
+                        <button class="btn c-white main-btn">Balance Return</button>
+                        <button class="btn c-white main-btn">Investment Application</button>
+
+                    </div>
+                </div>
+                <!-- end card -->
+                
+        
+
+
+            </div>
+        </div>
+        <!-- end page content -->
+    </div>
+    <!-- end split page -->
+
+    <!-- start script -->
+
+    <script src="https://kit.fontawesome.com/92c7a83d65.js" crossorigin="anonymous"></script>
+    <script src="{% static 'src/js/main.js' %}"></script>
+</body>
+
+</html>

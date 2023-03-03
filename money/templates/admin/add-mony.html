@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>document</title>
+    <link rel="stylesheet" href="{% static 'src/css/dist/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'src/css/dist/main.css' %}">
+
+</head>
+
+<body>
+
+
+    <div class="admin-board">
+        <div class="container">
+
+            <!-- start form -->
+            <form action="" method='post'>
+                {% csrf_token %}
+                <!-- start input group -->
+                <div class="input-group">
+                    <label for="">User ID</label>
+                    <input type="number" name='id' class="form-control">
+                </div>
+                <!-- end input group -->
+                
+                <!-- start input group -->
+                <div class="input-group">
+                    <label for="">Balance</label>
+                    <input type="number" name='balance' class="form-control">
+                </div>
+                <!-- end input group -->
+
+
+                <div class="btn-container">
+                    <button class="main-btn btn c-white font-size20" type="submit">Change</button>
+                </div>
+
+            </form>
+            <!-- end form -->
+
+        </div>
+    </div>
+
+    <!-- start script -->
+
+    <script src="https://kit.fontawesome.com/92c7a83d65.js" crossorigin="anonymous"></script>
+    <script src="{% static 'src/js/main.js' %}"></script>
+</body>
+
+</html>
