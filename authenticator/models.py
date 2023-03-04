@@ -12,7 +12,7 @@ class User(AbstractUser):
     email_token_time = models.DateTimeField(null=True,blank=True)
     forgot_password = models.CharField(max_length=100, null=True, blank=True)
     forgot_password_time = models.DateTimeField(null=True,blank=True)
-    otp_token = models.IntegerField(blank=True,null=True)
+    otp_token = models.CharField(max_length=64,blank=True,null=True)
     otp_created = models.DateTimeField(null=True,blank=True)
     last_login = models.DateField(null=True,blank=True)
     last_logout = models.DateField(null=True,blank=True)

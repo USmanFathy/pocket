@@ -4,64 +4,92 @@ from django.core.mail import send_mail
 from authenticator.models import User
 from django.conf import settings
 from django.utils import timezone
-from datetime import datetime, timedelta
+from datetime import timedelta
 import random
-
-def validate_otp(otp, user):
-    if user.otp_token is not None and user.otp_token == otp:
-        valid_time = user.otp_created + timedelta(minutes=5)
-        if datetime.now() < valid_time:
-            return True
-    return False
+from django.contrib import messages
+import hashlib as hashVal
 
 def login_view(request):
-    error_message = None
-    show_otp = False
+    request.session['otp-active'] = ""
+    
+    #  ________________________________________________________________________________NOTICE THIS FUNCTION
+    if request.user.is_authenticated:
+        print("redirected")
+        # If the user is authenticated, redirect them to a specific URL
+        # return redirect('my_authenticated_view')
+    #  ________________________________________________________________________________NOTICE THIS FUNCTION
 
-    if request.method == 'POST' and 'otp' not in request.POST:
+    if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
+        
+        # validate email and password
         user = authenticate(request, email=email, password=password)
-
         if user is not None:
-            show_otp = True
+            # generate OTP
+            otp = random.randint(100000, 999999)
+            
+            # send OTP via email
+            subject = 'Your login OTP'
+            message = f'Your OTP is {otp}. Please enter it on the login page to log in.'
             email_from = settings.EMAIL_HOST_USER
             email_to = [email]
-            random_otp = random.randint(000000,999999)
-            user.otp_token = random_otp
+            user.otp_token = hashVal.sha256(str(otp).encode('UTF-8')).hexdigest()   #hashing this otp to store in the user model
             user.otp_created = timezone.now()
             user.save()
-
+            
             try:
-                send_mail( "Your OTP.", str(random_otp), email_from, email_to)
+                send_mail( subject, message, email_from, email_to)
             except:
                 print("Exception with the mail")
 
+            request.session['otp-active'] = "active"
+            return redirect('two_step_verification')
         else:
-            error_message = 'Invalid email or password'
-    else:
-        error_message = None
+            messages.error(request, 'Invalid email or password')
+    
+    return render(request, 'login.html')
 
-    if show_otp:
-        if 'otp' in request.POST:
-            print(user)
-            print("outside validation")
-            otp = request.POST['otp']
-            if validate_otp(otp,user): # replace with your OTP validation logic
-                print(user)
+def two_step_verification(request):
+
+    #  ________________________________________________________________________________NOTICE THIS FUNCTION
+    if request.user.is_authenticated:
+        print("redirected")
+        # If the user is authenticated, redirect them to a specific URL
+        # return redirect('my_authenticated_view')
+    #  ________________________________________________________________________________NOTICE THIS FUNCTION
+
+    if request.method == 'POST':
+        email = request.POST['email']
+        otp_entered = request.POST['otp']
+        otp_hash = hashVal.sha256(str(otp_entered).encode('UTF-8')).hexdigest()
+       
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            messages.error(request, 'Invalid email or otp')
+            return redirect (two_step_verification)
+        
+        now = timezone.now()
+        expiry_time = user.otp_created + timedelta(minutes=4)   # Setting expiry time
+        
+        if user.otp_token == otp_hash:
+            if now < expiry_time:
+                request.session['otp-active'] = ""
                 login(request, user)
-                # Redirect to the home page or a dashboard page
-                return redirect('admin') # replace 'home' with your URL pattern name
+                # _________________________________________________________SET REDIRECT HERE
+                return redirect("/admin/")
             else:
-                error_message = 'Invalid OTP'
+                request.session['otp-active'] = ""
+                messages.error(request, 'Otp Expired.')
+                return redirect (login)
         else:
-            show_otp = True # If the request method is not POST, we show the OTP field
+            messages.error(request, 'Invalid email or otp')
+            return redirect (two_step_verification)
 
-    context = {
-        'title': "Login",
-        'error_message': error_message,
-        'show_otp': show_otp,
-    }
-
-    return render(request, 'login.html', context)
-
+    
+    otp_active = request.session.get('otp-active')
+    if not otp_active:
+        return redirect('login')
+    else:
+        return render(request, 'verify_otp.html')

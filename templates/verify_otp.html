@@ -10,17 +10,19 @@
     {% endfor %}
   </div>
 {% endif %}
+
 <hr></hr>
-<h1>Login</h1>
-<hr></hr>
+<h1>Verify OTP</h1>
+<hr></hr> 
 <form method="post">
     {% csrf_token %}
-    <label for="username">Email:</label>
-    <input type="email" name="email" required><br>
-  
-    <label for="password">Password:</label>
-    <input type="password" name="password" required><br>
 
-    <button type="submit">Login</button>
+    <label for="email">Email:</label>
+    <input type="email" name="email" required><br>
+
+    <label for="otp">OTP:</label>
+    <input type="text" name="otp" required><br>
+  
+    <button type="submit">Verify Otp</button>
   </form>  
 {% endblock %}

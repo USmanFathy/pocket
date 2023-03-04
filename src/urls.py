@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/',authViews.login_view,name='login'),
     path('logout/', django_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
-
+    path('two_step_verification/',authViews.two_step_verification,name="two_step_verification"),
 
     # path('' , include('money.urls'))
 ]
